@@ -1,0 +1,54 @@
+
+<div class="sign-up">
+  <div class="user-input">
+    <div class="sign-up-label">
+      Sign Up
+      <hr />
+    </div>
+    <form class="signup-form" [formGroup]="signupForm" (ngSubmit)="onSubmit()" (click)="onClick()">
+      <div class="form-floating">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+          formControlName="email">
+        <label for="floatingInput">Enter Email Id </label>
+      </div>
+
+      <div class="form-invalid-warning"
+        *ngIf="signupForm.get('email')?.invalid && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)">
+        Please provide a valid email address.
+      </div>
+
+
+      <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+          formControlName="password">
+        <label for="floatingPassword">Enter Password </label>
+
+      </div>
+      <div class="form-invalid-warning"
+        *ngIf="signupForm.get('password')?.invalid &&   ( (signupForm.get('password')?.dirty)|| signupForm.get('password')?.touched)">
+        ** Password Should be atleast 8 characters long
+      </div>
+
+      <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword2" placeholder="Password"
+          formControlName="confirmpassword">
+        <label for="floatingPassword2">Confirm Password  </label>
+      </div>
+      <div class="form-invalid-warning"
+        *ngIf="signupForm.get('password')?.value!=signupForm.get('confirmpassword')?.value &&   ( (signupForm.get('password')?.dirty)|| signupForm.get('password')?.touched) && signupForm.get('password')?.value!=''">
+        ** Passowords Do Not Match
+      </div>
+      <button class="submit" type="submit" [disabled]="signupForm.invalid">Submit</button>
+    </form>
+    <div class="login">
+      Already a Member? <a [routerLink]="'/user/login'">LOG IN</a>
+      <hr>
+    </div>
+    <div *ngIf="responseStatus && !signupStatus" class="alert  alert-danger">
+    ** User Already Exists 
+    </div>
+  </div>
+  <div class="town-image">
+    <img class="town-image" src="../../assets/MicrosoftTeams-image (2).png" />
+  </div>
+</div>

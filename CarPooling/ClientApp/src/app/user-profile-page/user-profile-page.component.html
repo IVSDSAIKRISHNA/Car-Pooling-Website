@@ -1,0 +1,118 @@
+<div class="main-container">
+  <div class="top-bar">
+    <img class="home-logo1" src="../../assets/logo (1).png" />
+    <div class="user-profile">
+      <div class="dropdown">
+        <button class="dropbtn">{{activeUser.userName}}</button>
+        <div class="dropdown-content">
+          <a [routerLink]="'/infoupdate'">Profile</a>
+          <a [routerLink]="'/profile'">My Rides</a>
+          <a [routerLink]="'/home/signup'">Logout</a>
+        </div>
+      </div>
+      <img class="user-photo" src="../../assets/logo (1).png" />
+    </div>
+  </div>
+
+  <div class="rides">
+    <div class="booked-rides">
+      <div class="booked-ride-header">Booked Rides</div>
+      <div *ngFor="let bookedride of PreviouslyBookedRides">
+        <div class="ride-info">
+          <div class="user-info">
+            <!-- <div class="user-name">{{bookedride.offererName}}</div> -->
+            <div class="user-name"> {{bookedride.offererName}} </div>
+            <div class="user-dp">
+              <img class="user-photo" src="../../assets/MicrosoftTeams-image (3).png" />
+            </div>
+          </div>
+          <div class="ride-details">
+            <div class="left-half">
+              <div class="source">
+                <span>From</span>
+                <div>{{ bookedride.startPoint }}</div>
+              </div>
+              <div class="date">
+                <span>Date</span>
+                <div>{{ bookedride.date }}</div>
+              </div>
+              <div class="price">
+                <span>Price</span>
+                <div>{{ bookedride.fare }}</div>
+              </div>
+            </div>
+            <div class="right-half">
+              <div class="destination">
+                <span>To</span>
+                <div>{{ bookedride.endPoint }}</div>
+              </div>
+              <div class="time">
+                <span>Time</span>
+                <div>{{bookedride.timeSlot}}</div>
+              </div>
+              <div class="offerid">
+                <span>Offerer Id</span>
+                <div>{{bookedride.offererUserId}}</div>
+              </div>
+              <div class="offername">
+                <span>Offerer Name</span>
+                <div>{{bookedride.offererName}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="no-rides" *ngIf="bookRidesCount">
+        You Have Not Booked Any Rides Before
+      </div>
+    </div>
+
+    <!-- Previously OfferedRides -->
+    <div class="offered-rides">
+      <div class="offered-ride-header">Offered Rides</div>
+      <div *ngFor="let offeredride of PreviouslyOfferedRides">
+        <div class="ride-info">
+          <div class="user-info">
+            <div class="user-name">{{offeredride.offererName}}</div>
+            <div class="user-dp">
+              <img class="user-photo" src="../../assets/MicrosoftTeams-image (3).png" />
+            </div>
+          </div>
+          <div class="ride-details">
+            <div class="left-half">
+              <div class="source">
+                <span>From</span>
+                <div>{{offeredride.startPoint}}</div>
+              </div>
+              <div class="date">
+                <span>Date</span>
+                <div>{{offeredride.date}}</div>
+              </div>
+              <div class="price">
+                <span>Price</span>
+                <div>{{offeredride.farePerBlock | currency}}</div>
+              </div>
+            </div>
+            <div class="right-half">
+              <div class="destination">
+                <span>To</span>
+                <div>{{offeredride.endPoint}}</div>
+              </div>
+              <div class="time">
+                <span>Time</span>
+                <div>{{offeredride.timeSlot}}</div>
+              </div>
+              <div class="capacity">
+                <span>Seats</span>
+                <div>{{offeredride.capacity[0]}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="no-rides" *ngIf="offeredRidesCount">
+        You Have Not Booked Any Rides Before
+      </div>
+    </div>
+  </div>
+</div>

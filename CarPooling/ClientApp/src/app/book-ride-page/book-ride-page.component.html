@@ -1,0 +1,180 @@
+<div class="main-container">
+  <div class="top-bar">
+    <img class="home-logo1" src="../../assets/logo (1).png" />
+    <div class="user-profile">
+      <div class="dropdown">
+        <button class="dropbtn">{{activeUser.userName}}</button>
+        <div class="dropdown-content">
+          <a [routerLink]="'/infoupdate'">Profile</a>
+          <a [routerLink]="'/profile'">My Rides</a>
+          <a [routerLink]="'/home/signup'">Logout</a>
+        </div>
+    </div>
+      <img class="user-photo" src="../../assets/logo (1).png" />
+    </div>
+  </div>
+  <div class="menu">
+    <div class="book-ride">
+      <div class="primary-section">
+        <div class="card-title">
+          Book a Ride
+          <div class="catch-phrase">we can get you a the matches asap!</div>
+        </div>
+        <div class="form-check form-switch form-switch-md">
+          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked />
+        </div>
+      </div>
+      <div class="ride-details">
+        <form [formGroup]="bookRideForm" (submit)="BookRideFromSubmission()" (click)="onClick()">
+          <div class="source">
+            <label for="startpoint">From</label>
+            <input type="text" formControlName="source" id="startpoint" />
+          </div>
+          <div class="form-invalid-warnings"
+            *ngIf="bookRideForm.get('source')?.invalid && (bookRideForm.get('source')?.dirty || bookRideForm.get('source')?.touched)">
+            ** Please Enter The Source
+          </div>
+          <div class="destination">
+            <label>To</label>
+            <input type="text" formControlName="destination" />
+          </div>
+          <div class="form-invalid-warnings"
+            *ngIf="bookRideForm.get('destination')?.invalid && (bookRideForm.get('destination')?.dirty || bookRideForm.get('destination')?.touched)">
+            ** Please Enter The Destination
+          </div>
+          <div class="form-invalid-warnings"
+          *ngIf="bookRideForm.get('destination')?.value ==bookRideForm.get('source')?.value && (bookRideForm.get('destination')?.dirty || bookRideForm.get('destination')?.touched) && (bookRideForm.get('source')?.dirty || bookRideForm.get('source')?.touched) && bookRideForm.get('source')?.value!=''">
+          ** Source and Destination Cannot be the Same 
+        </div>
+          <div class="date">
+            <label>Date</label>
+            <input type="date" placeholder="xx/mm/yyyy" formControlName="date" min={{currentDate}} />
+          </div>
+          <div class="form-invalid-warnings"
+            *ngIf="bookRideForm.get('date')?.invalid && (bookRideForm.get('date')?.dirty || bookRideForm.get('date')?.touched)">
+            ** Please Enter The Date
+          </div>
+          <div class="timeslot">
+            <label>Time</label>
+            <ul class="radio-btns times-input-set">
+              <li>
+                <input type="radio" [value]="'5am-9am'" id="ts1" name="time" formControlName="time" />
+                <label for="ts1">5am-9am</label>
+              </li>
+              <li>
+                <input type="radio" [value]="'9am-12pm'" id="ts2" name="time" formControlName="time" /><label
+                  for="ts2">9am-12pm</label>
+              </li>
+              <li>
+                <input type="radio" [value]="'12pm-3pm'" id="ts3" name="time" formControlName="time" />
+                <label for="ts3">12pm-3pm</label>
+              </li>
+              <li>
+                <input type="radio" [value]="'3pm-6pm'" id="ts4" name="time" formControlName="time" />
+                <label for="ts4">3pm-6pm</label>
+              </li>
+              <li>
+                <input type="radio" [value]="'6pm-9pm'" id="ts5" name="time" formControlName="time" />
+                <label for="ts5">6pm-9pm</label>
+              </li>
+            </ul>
+          </div>
+          <button class="submit-button" type="submit" [disabled]="bookRideForm.invalid">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="matched-rides" *ngIf="!responseStatus">
+      <div class="heading" *ngIf="matchedRideStatus">Your Matches</div>
+      <div class="matches">
+        <!-- Matched Rides -->
+        <!-- Second Ride -->
+        <div *ngFor="let ride of allMatchedRides">
+          <div class="ride-info">
+            <div class="user-info">
+              <div class="user-name2">{{ride.offererName}}</div>
+              <div class="user-dp">
+                <img class="user-photo" src="../../assets/MicrosoftTeams-image (3).png" />
+              </div>
+            </div>
+            <div class="ride-details">
+              <div class="left-half">
+                <div class="source">
+                  <span class="label1">From</span>
+                  <div>{{ride.startPoint}}</div>
+                </div>
+                <div class="date">
+                  <span class="label1">Date</span>
+                  <div>{{ride.date | date}}</div>
+                </div>
+                <div class="price">
+                  <span class="label1">Price</span>
+                  <div>{{ride.farePerBlock| currency }}</div>
+                </div>
+              </div>
+              <div class="right-half">
+                <div class="destination">
+                  <span class="label1">To</span>
+                  <div>{{ride.endPoint}}</div>
+                </div>
+                <div class="time">
+                  <span class="label1">Time</span>
+                  <div>{{ride.timeSlot}}</div>
+                </div>
+                <div class="capacity">
+                  <span class="label1">Seats</span>
+                  <div>{{ride.capacity}}</div>
+                </div>
+
+                <div class="confirmRide">
+                  <div class="btn btn-primary" (click)="BookRide(ride.rideId)"> Book</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!matchedRideStatus" class="no-matches-found">
+        Could Not Find Any Matches. Please  Try Again After Sometime 
+      </div>
+    </div>
+    <div class="response" *ngIf="responseStatus">
+      <div class="success-message" *ngIf="successStatus">
+        <div class="success-message-header">Ticket Booked Sucessfully !! Here Are Your Details</div>
+        <div class="ride-info">
+          <div class="user-info">
+            <div class="user-name2"> {{bookedRide?.offererName}}</div>
+            <div class="user-dp">
+              <img class="user-photo" src="../../assets/MicrosoftTeams-image (3).png" />
+            </div>
+          </div>
+          <div class="success-ride-details">
+            <div class="offerer-id">
+              <span>Offerer Id :  </span>{{bookedRide?.offererUserId}}
+            </div>
+            <div class="offerer-name">
+              <span> Offerer Name :   </span>{{bookedRide?.offererName}}
+            </div>
+            <div class="booked-ride-startpoint">
+              <span>Start Point :    </span>{{bookedRide?.startPoint}}
+            </div>
+            <div class="booked-ride-endpoint">
+              <span>End Point : </span>{{bookedRide?.endPoint}}
+            </div>
+            <div class="booked-ride-fare">
+              <span>Total - Fare:   </span>{{bookedRide?.fare | currency}}
+            </div>
+            <div class="booked-ride-date">
+              <span>Date:</span>{{bookedRide?.date}}
+            </div>
+            <div class="booked-ride-timeslot">
+              <span> TimeSlot: </span> {{bookedRide?.timeSlot}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="failure-message" *ngIf="!successStatus">
+     Sorry Could Not Book the Ride 
+     Please Try Again!!!
+      </div>
+    </div>
+  </div>

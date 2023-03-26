@@ -1,0 +1,183 @@
+<div class="main-container">
+  <div class="top-bar">
+    <img class="home-logo1" src="../../assets/logo (1).png" />
+    <div class="user-profile">
+      <div class="dropdown">
+        <button class="dropbtn">{{activeUser.userName}}</button>
+        <div class="dropdown-content">
+          <a [routerLink]="'/infoupdate'">Profile</a>
+          <a [routerLink]="'/profile'">My Rides</a>
+          <a [routerLink]="'/home/signup'">Logout</a>
+        </div>
+      </div>
+      <img class="user-photo" src="../../assets/logo (1).png" />
+    </div>
+  </div>
+  <div class="offer-ride-requestts">
+    <div class="book-ride">
+      <div class="primary-section">
+        <div class="card-title">
+          Offer A Ride
+          <div class="catch-phrase">We can get you a the matches asap!</div>
+        </div>
+        <div class="form-check form-switch form-switch-md">
+          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked />
+        </div>
+      </div>
+      <div class="secondary-section">
+        <div class="ride-details">
+          <form class="first-form" [formGroup]="firstForm">
+            <div class="source">
+              <label for="startpoint">From</label>
+              <input type="text" id="startpoint" formControlName="source" />
+            </div>
+            <div class="form-invalid-warnings"
+              *ngIf="firstForm.get('source')?.invalid && (firstForm.get('source')?.dirty || firstForm.get('source')?.touched)">
+              ** Please Enter The Source
+            </div>
+            <div class="destination">
+              <label>To</label>
+              <input type="text" formControlName="destination" />
+            </div>
+            <div class="form-invalid-warnings"
+              *ngIf="firstForm.get('destination')?.invalid && (firstForm.get('destination')?.dirty || firstForm.get('destination')?.touched)">
+              ** Please Enter The Destination
+            </div>
+            <div class="form-invalid-warnings"
+              *ngIf="firstForm.get('destination')?.value ==firstForm.get('source')?.value && (firstForm.get('destination')?.dirty || firstForm.get('destination')?.touched) && (firstForm.get('source')?.dirty || firstForm.get('source')?.touched) && firstForm.get('source')?.value!=''">
+              ** Source and Destination Cannot be the Same
+            </div>
+            <div class="date">
+              <label>Date</label>
+              <input type="date" placeholder="xx/mm/yyyy" formControlName="date" min={{currentDate}} />
+            </div>
+            <div class="form-invalid-warnings"
+              *ngIf="firstForm.get('date')?.invalid && (firstForm.get('date')?.dirty || firstForm.get('date')?.touched)">
+              ** Please Enter The Date
+            </div>
+            <div class="time-slot">
+              <label>Time</label>
+              <ul class="radio-btns times-input-set">
+                <li>
+                  <input type="radio" [value]="'5am-9am'" id="ts1" name="time" formControlName="time" />
+                  <label for="ts1">5am-9am</label>
+                </li>
+                <li>
+                  <input type="radio" [value]="'9am-12pm'" id="ts2" name="time" formControlName="time" /><label
+                    for="ts2">9am-12pm</label>
+                </li>
+                <li>
+                  <input type="radio" [value]="'12pm-3pm'" id="ts3" name="time" formControlName="time" />
+                  <label for="ts3">12pm-3pm</label>
+                </li>
+                <li>
+                  <input type="radio" [value]="'3pm-6pm'" id="ts4" name="time" formControlName="time" />
+                  <label for="ts4">3pm-6pm</label>
+                </li>
+                <li>
+                  <input type="radio" [value]="'6pm-9pm'" id="ts5" name="time" formControlName="time" />
+                  <label for="ts5">6pm-9pm</label>
+                </li>
+              </ul>
+            </div>
+            <button class="next" [disabled]="firstForm.invalid" (click)="Next()">Next >></button>
+          </form>
+        </div>
+        <div class="ride-icon"> <i class="fa fa-circle" style="font-size:17px;"></i>
+          <i class="fa fa-circle stopicon" style="font-size:9px; color:lightgray"></i>
+          <i class="fa fa-circle stopicon" style="font-size:9px; color:lightgray"></i>
+          <i class="fa fa-circle stopicon" style="font-size:9px; color:lightgray"></i>
+          
+          <i class='fas fa-map-marker-alt' style='font-size:22px;color:darkblue'></i>
+        </div>
+      </div>
+    </div>
+
+    <!--Second card For Taking the Stops -->
+    <div *ngIf="status">
+      <div class="book-ride extra-info">
+        <div class="primary-section">
+          <div class="card-title">
+            Offer A Ride
+            <div class="catch-phrase">we can get you a the matches asap!</div>
+          </div>
+          <div class="form-check form-switch form-switch-md">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked />
+          </div>
+        </div>
+        <div class="ride-details2">
+          <form class="second-form" [formGroup]="secondForm">
+            <div class="all-stops">
+              <div class="stop">
+                <label>Stop 1</label>
+                <input type="text" id="startpoint" formControlName="stop1" />
+              </div>
+              <div class="stop">
+                <label>Stop2</label>
+                <input type="text" formControlName="stop2" />
+              </div>
+              <div class="stop">
+                <label>Stop3</label>
+                <input type="text" formControlName="stop3" />
+              </div>
+              <div formArrayName="allstops">
+                <div *ngFor="  let stop  of allstops let i =index">
+                  <div class="stop">
+                    <label>Stop{{i+4}}</label>
+                    <input type="text" name={{i}} formControlName={{i}}>
+                  </div>
+                </div>
+              </div>
+              <i class="fa fa-plus plus-icon" (click)="addNewStop()"></i>
+            </div>
+            <div class="different-input">
+              <div class="avaliable-slots">
+                <label>Avaliable Seats </label>
+                <div class="no-of-seats">
+                  <ul class="radio-btns times-input-set">
+                    <li>
+                      <input type="radio" [value]="'1'" id="ts8" name="vacancy" formControlName="vacancy" />
+                      <label for="ts8">1</label>
+                    </li>
+                    <li>
+                      <input type="radio" [value]="'2'" id="ts6" name="vacancy" formControlName="vacancy" /><label
+                        for="ts6">2</label>
+                    </li>
+                    <li>
+                      <input type="radio" [value]="'3'" id="ts7" name="vacancy" formControlName="vacancy" />
+                      <label for="ts7"> 3</label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="price">
+                <label>Price</label>
+                <input type="text" class="price-of-each-slot" formControlName="price" />
+              </div>
+            </div>
+            <button type="submit" class="ride-submit" [disabled]="secondForm.invalid"
+              (click)="OfferRideRequestSubmit()">Submit</button>
+          </form>
+          <div class="ride-icon"> <i class="fa fa-circle" style="font-size:17px;"></i>
+            <i class="fa fa-circle stopicon2" style="font-size:9px; color:lightgray"></i>
+            <i class="fa fa-circle stopicon2" style="font-size:9px; color:lightgray"></i>
+            <i class="fa fa-circle stopicon2" style="font-size:9px; color:lightgray"></i>
+            <i class="fa fa-circle stopicon2" style="font-size:9px; color:lightgray"></i>
+            <i class="fa fa-circle stopicon2" style="font-size:9px; color:lightgray"></i>
+            <i class="fa fa-circle stopicon2" style="font-size:9px; color:lightgray"></i>
+            <i class="fa fa-circle stopicon2" style="font-size:9px; color:lightgray"></i>
+            <i class='fas fa-map-marker-alt' style='font-size:22px;color:darkblue'></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="response-message" *ngIf="responseMessage">
+      <div class="success-message" *ngIf="requestSubmitStatus">
+        Request Submitted Sucessfully !!!
+      </div>
+      <div class="success-message red" *ngIf="!requestSubmitStatus">
+        Unexpected Error Has Occured Please try again
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="main-container">
+    <div class="top-bar">
+        <img class="home-logo1" src="../../assets/logo (1).png" />
+        <div class="user-profile">
+            <div class="dropdown">
+                <button class="dropbtn">{{activeUser.userName}}</button>
+                <div class="dropdown-content">
+                    <a [routerLink]="'/infoupdate'">Profile</a>
+                    <a [routerLink]="'/profile'">My Rides</a>
+                    <a [routerLink]="'/home/signup'">Logout</a>
+                </div>
+            </div>
+            <img class="user-photo" src="../../assets/logo (1).png" />
+        </div>
+    </div>
+    <div class="update-profile" *ngIf="!sucessstatus">
+
+
+
+        <div class="update-profile-info">
+            <div class="title">
+                Enter New Details Here
+            </div>
+            <div class="update-info-form">
+                <form [formGroup]="userInfoForm">
+                    <div class="new-user-name">
+                        <label for="username"> New User Name:</label>
+                        <input type="text" id="username" formControlName="username" />
+                    </div>
+                    <div class="form-invalid-warnings"
+                        *ngIf="userInfoForm.get('username')?.invalid && (userInfoForm.get('username')?.dirty || userInfoForm.get('username')?.touched)">
+                        ** Please Enter The User Name
+                    </div>
+                    <div class="new-user-password">
+                        <label for="password"> New Password :</label>
+                        <input type="password" id="password" formControlName="password" />
+                    </div>
+                    <div class="form-invalid-warnings"
+                        *ngIf="userInfoForm.get('password')?.invalid && (userInfoForm.get('password')?.dirty || userInfoForm.get('password')?.touched)">
+                        ** Password Should be atlest 8 characters long
+                    </div>
+                    <div class="new-user-confirm-password">
+                        <label for="confirmpassword"> Confirm Password :</label>
+                        <input type="password" id="confirmpassword" formControlName="confirmpassword" />
+                    </div>
+                    <div class="form-invalid-warnings"
+                        *ngIf="userInfoForm.get('password')?.value!=userInfoForm.get('confirmpassword')?.value  && (userInfoForm.get('confirmpassword')?.dirty || userInfoForm.get('confirmpassword')?.touched)">
+                        ** Passwords Do Not Match
+                    </div>
+                    <div class="new-user-email">
+                        <label for="email">Email: </label>
+                        <input type="text" id="email" formControlName="email" />
+                    </div>
+                    <div class="form-invalid-warnings"
+                        *ngIf="userInfoForm.get('email')?.invalid && (userInfoForm.get('email')?.dirty || userInfoForm.get('email')?.touched)">
+                        ** Invalid Email Format
+                    </div>
+                    <div class="new-user-phone-number">
+                        <label for="phonenumber">Phone Number:</label>
+                        <input type="number" id="phonenumber" formControlName="phonenumber" />
+                    </div>
+                    <div class="form-invalid-warnings"
+                        *ngIf="userInfoForm.get('phonenumber')?.invalid && (userInfoForm.get('phonenumber')?.dirty || userInfoForm.get('phonenumber')?.touched)">
+                        ** Invalid Phone Number
+                    </div>
+
+                    <div class="submit">
+                        <button class="btn btn-primary btn-lg" [disabled]="userInfoForm.invalid"
+                            (click)="UpdateInfo()">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="success-block" *ngIf="sucessstatus">
+        <div class="success-message">
+            Successfully Updated The Profile!!!
+        </div>
+        <div class="back-to-home">
+            <a [routerLink]="'/home'"> Go Back to Home</a>
+        </div>
+    </div>
+</div>

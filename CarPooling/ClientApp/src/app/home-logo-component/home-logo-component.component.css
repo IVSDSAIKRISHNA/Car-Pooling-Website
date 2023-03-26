@@ -1,0 +1,47 @@
+ .home-logo{
+    margin-top: 20px;
+    margin-left: 40px;
+}
+.home-logo1{
+    width: 6%;
+}
+.home-logo2{
+    width:64vw;
+}
+.input{
+    display: flex;
+    width: 100%;
+}
+.text{
+    margin:39px -5px;
+    font-size: 130px;
+    font-weight: bold;
+    line-height: 5.5vw;
+    transform: skewX(-8deg);
+    word-spacing: 20px;
+    letter-spacing: 10px; 
+}
+.line2{
+    margin-left: 16px;
+    letter-spacing: 15;
+    word-spacing: 37px;
+}
+.text-in-orange{
+    color: rgba(255,172,25,255);
+}
+.text-in-purple{
+    color:rgba(147,25,255,255);
+    letter-spacing: 0px;
+}
+.home-keyword{
+    margin:-37px 0px 0px 15px ;
+    color:black;
+    font-weight: 600;
+    font-size: 30px;
+    letter-spacing: 10px;
+    word-spacing: 10px;
+} 
+.user-authentication{
+    margin-left: 60px; 
+    width: inherit;
+}

@@ -1,0 +1,23 @@
+<div class="main">
+    <div class="top-bar">
+        <img class="home-logo1" src="../../assets/logo (1).png" />
+        <div class="user-profile">
+            <div class="dropdown">
+                <button class="dropbtn">{{activeUser.userName}}</button>
+                <div class="dropdown-content">
+                  <a [routerLink]="'/infoupdate'">Profile</a>
+                  <a [routerLink]="'/profile'">My Rides</a>
+                  <a [routerLink]="'/home/signup'">Logout</a>
+                </div>
+            </div>
+            <img class="user-photo" src="../../assets/logo (1).png" />
+        </div>
+    </div>
+    <div class="options">
+        <div class="salutation"> Hey {{activeUser.userName}}!!</div>
+        <div class="user-requests">
+            <button class="book-ride-option" [routerLink]="'/bookride'">Book A Ride</button>
+            <button class="offer-ride-option" [routerLink]="'/offerride'">Offer A Ride</button>
+        </div>
+    </div>
+</div>

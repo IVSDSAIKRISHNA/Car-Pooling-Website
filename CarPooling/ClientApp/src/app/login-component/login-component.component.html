@@ -1,0 +1,46 @@
+<div class="log-in">
+  <div class="user-input">
+    <div class="login-label">
+      Log In
+      <hr />
+    </div>
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" (click)="onClick()">
+      <div class="form-floating">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+          formControlName="email">
+        <label for="floatingInput">Enter Email Id </label>
+      </div>
+
+      <!-- <input type="text" formControlName="email" id="floatingInput" placeholder="Enter Email Id" /> -->
+
+
+      <div class="form-invalid-warning" 
+        *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+        ***Please provide a valid email address.
+      </div>
+
+      <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+          formControlName="password">
+        <label for="floatingPassword">Enter Password </label>
+      </div>
+
+      <!-- <input type="password" formControlName="password" placeholder=" Enter Password" /> -->
+      <div class="form-invalid-warning" 
+        *ngIf="loginForm.get('password')?.invalid && ((loginForm.get('password')?.dirty)|| loginForm.get('password')?.touched)">
+        ***Password Should be atleast 8 characters long
+      </div>
+      <button class="submit" type="submit" [disabled]="loginForm.invalid">Submit</button>
+    </form>
+
+    <div class="sign-up">Not a Member Yet ? <a [routerLink]="'/user/signup'">Sign Up</a>
+    <hr></div>
+
+  </div>
+  <div class="alert alert-danger" *ngIf="invalidDetails && loginForm.get('email')?.value!='' && loginForm.get('password')?.value!=''">
+    Invalid Credentials Try again
+  </div>
+  <div class="town-image">
+    <img class="town-image" src="../../assets/MicrosoftTeams-image (2).png" />
+  </div>
+</div>

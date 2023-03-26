@@ -1,0 +1,176 @@
+.main-container {
+  background-image: url("../../assets/img4.png");
+  width: 100vw;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 100%;
+  background-blend-mode: saturation;
+}
+
+select {
+  border: none;
+  appearance: none;
+  font-size: 20px;
+  font-weight: 800;
+}
+option {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 45px;
+}
+
+.user-profile {
+  display: flex;
+  column-gap: 10px;
+}
+
+.user-name {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.success-message {
+  font-size: 60px;
+  font-weight: 900;
+  color: black;
+}
+
+.success-block{
+  position: absolute;
+  top: 40%;
+  left: 25%;
+  text-align: center;
+  display: grid;
+  row-gap: 30px;
+}
+
+.back-to-home{
+  font-size: 40px;
+}
+a{
+  text-decoration: none;
+}
+.name {
+  font-size: 50px;
+  color: orange;
+  font-family: Copperplate, Papyrus, fantasy;
+  font-weight: 700;
+}
+
+.update-profile {
+  display: flex;
+  margin:10vh 2vw 5vh 2vw;
+  justify-content: space-evenly;
+}
+
+.update-image{
+  width: 55%;
+  height: 55%;
+}
+
+.update-profile-info {
+  /* background-color:#292929; */
+  background-color: white;
+  box-shadow: 0 0 5px 3px gray;
+  padding: 25px;
+  border-radius: 5px;
+  color: black;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+}
+
+.title {
+  color: orange;
+  font-size: 40px;
+  height: fit-content;
+  /*font-family: Copperplate, Papyrus, fantasy;*/
+}
+
+div > label {
+  font-size: 20px;
+}
+div > input {
+  width: 15vw;
+  height: 5vh;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  border-radius: 5px;
+}
+input:focus {
+  outline: none;
+  border-bottom-color: blue;
+}
+form>div{
+  display: flex;
+  justify-content: space-between;
+}
+form {
+  display: grid;
+  row-gap: 2vh;
+}
+.form-invalid-warnings{
+  color: red;
+  font-size: 20;
+}
+
+
+/* To Hide the Arrow Bars while taking the input as number */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Drop Down*/
+.dropbtn {
+  /* background-color: #4CAF50; */
+  font-weight: 600;
+  color: black;
+  padding: 20px;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+}
+
+.dropdown {
+  position: relative;
+  top: 5px;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: gray;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  color: white;
+  background-color: rgba(147, 25, 255, 255);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}

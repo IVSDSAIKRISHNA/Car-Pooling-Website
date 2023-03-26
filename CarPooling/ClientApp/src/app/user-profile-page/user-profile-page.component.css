@@ -1,0 +1,217 @@
+.main-container {
+  background-image: url("../../assets/img4.png");
+  width: 100vw;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 100%;
+  background-blend-mode: saturation;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 45px;
+}
+
+select {
+  border: none;
+  appearance: none;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+option {
+  /* margin-top: 20px; */
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.user-profile {
+  display: flex;
+  column-gap: 10px;
+}
+
+.user-name {
+  margin-top: 5px;
+  font-size: 35px;
+  font-weight: 700;
+}
+
+.rides {
+  width: 70%;
+  height: 70%;
+  position: absolute;
+  left: 10%;
+  top: 30%;
+
+  margin-top: -100px;
+  margin-left: -100px;
+  padding: 3px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.booked-rides {
+  padding-left: 20px;
+  width: 45%;
+  height: 112%;
+  overflow-y: auto;
+}
+
+.offered-rides {
+  padding-left: 20px;
+  width: 45%;
+  height: 112%;
+  overflow-y: auto;
+}
+
+.booked-ride-header {
+  background-color: rgba(147, 25, 255, 255);
+  border-radius: 5px;
+  color: white;
+  width: 30%;
+  height: 7%;
+  font-size: 20px;
+  text-align: center;
+  padding-top: 5px;
+}
+
+.offered-ride-header {
+  background-color: rgba(255, 172, 25, 255);
+  border-radius: 5px;
+  color: white;
+  width: 30%;
+  height: 7%;
+  font-size: 20px;
+  text-align: center;
+  padding-top: 5px;
+}
+
+.ride-info {
+  width: 80%;
+  background-color: white;
+  box-shadow: 0 0 5px 3px gray;
+  border-radius: 5px;
+  margin: 25px 0px;
+  padding: 5px 20px 10px 20px;
+}
+
+.user-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-dp {
+  transform: translate(5);
+}
+
+.user-dp>img {
+  width: 60px;
+  margin-top: 5px;
+}
+
+.user-name2 {
+  margin-top: 15px;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.ride-details {
+  display: flex;
+  margin-top: 10px;
+  column-gap: 5vh;
+}
+
+.left-half {
+  display: grid;
+  row-gap: 5px;
+  margin-right: 20px;
+}
+
+.right-half {
+  margin-left: 100px;
+  display: grid;
+}
+
+span {
+  color: gray;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.ride-details>div {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.no-rides {
+  color: red;
+  font-size: 30px;
+  margin-top: 30px;
+}
+
+/* For the Custom Scroll Bar  */
+::-webkit-scrollbar {
+  width: 10px;
+  display: none;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+/* For Drop Down*/
+.dropbtn {
+  /* background-color: #4CAF50; */
+  font-weight: 600;
+  color: black;
+  padding: 20px;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+}
+
+.dropdown {
+  position: relative;
+  top: 5px;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: gray;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  color: white;
+  background-color: rgba(147, 25, 255, 255);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}

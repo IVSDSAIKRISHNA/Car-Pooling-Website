@@ -31,7 +31,7 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css"
+              "src/styles.css","node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
@@ -40,13 +40,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "4mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "4mb"
                 }
               ],
               "fileReplacements": [
@@ -144,9 +144,7 @@
             "outputPath": "dist/car-pooling",
             "index": "projects/car-pooling/src/index.html",
             "main": "projects/car-pooling/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": [ "zone.js"],
             "tsConfig": "projects/car-pooling/tsconfig.app.json",
             "assets": [
               "projects/car-pooling/src/favicon.ico",
@@ -205,10 +203,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js","zone.js/testing"],
             "tsConfig": "projects/car-pooling/tsconfig.spec.json",
             "assets": [
               "projects/car-pooling/src/favicon.ico",

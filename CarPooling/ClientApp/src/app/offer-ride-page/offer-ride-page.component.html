@@ -1,13 +1,13 @@
 <div class="main-container">
   <div class="top-bar">
-    <img class="home-logo1" src="../../assets/logo (1).png" />
+    <a [routerLink]="'/home'"><img class="home-logo1" src="../../assets/logo (1).png" /></a>
     <div class="user-profile">
       <div class="dropdown">
         <button class="dropbtn">{{activeUser.userName}}</button>
         <div class="dropdown-content">
           <a [routerLink]="'/infoupdate'">Profile</a>
           <a [routerLink]="'/profile'">My Rides</a>
-          <a [routerLink]="'/home/signup'">Logout</a>
+          <a [routerLink]="'/home/login'" (click)="Logout()">Logout </a>
         </div>
       </div>
       <img class="user-photo" src="../../assets/logo (1).png" />
@@ -17,11 +17,12 @@
     <div class="book-ride">
       <div class="primary-section">
         <div class="card-title">
-          Offer A Ride
-          <div class="catch-phrase">We can get you a the matches asap!</div>
+          Offer a Ride
+          <div class="catch-phrase">we can get you a the matches asap!</div>
         </div>
         <div class="form-check form-switch form-switch-md">
-          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked />
+          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked
+            [routerLink]="'/bookride'" />
         </div>
       </div>
       <div class="secondary-section">
@@ -33,7 +34,7 @@
             </div>
             <div class="form-invalid-warnings"
               *ngIf="firstForm.get('source')?.invalid && (firstForm.get('source')?.dirty || firstForm.get('source')?.touched)">
-              ** Please Enter The Source
+              No Symbols,spaces are allowed, need min 3 letters
             </div>
             <div class="destination">
               <label>To</label>
@@ -41,7 +42,7 @@
             </div>
             <div class="form-invalid-warnings"
               *ngIf="firstForm.get('destination')?.invalid && (firstForm.get('destination')?.dirty || firstForm.get('destination')?.touched)">
-              ** Please Enter The Destination
+              No Symbols,spaces are allowed, need min 3 letters
             </div>
             <div class="form-invalid-warnings"
               *ngIf="firstForm.get('destination')?.value ==firstForm.get('source')?.value && (firstForm.get('destination')?.dirty || firstForm.get('destination')?.touched) && (firstForm.get('source')?.dirty || firstForm.get('source')?.touched) && firstForm.get('source')?.value!=''">
@@ -49,7 +50,8 @@
             </div>
             <div class="date">
               <label>Date</label>
-              <input type="date" placeholder="xx/mm/yyyy" formControlName="date" min={{currentDate}} />
+              <input type="date" placeholder="xx/mm/yyyy" formControlName="date" min={{currentDate}}
+                (ngModelChange)="OnDateSelection()" />
             </div>
             <div class="form-invalid-warnings"
               *ngIf="firstForm.get('date')?.invalid && (firstForm.get('date')?.dirty || firstForm.get('date')?.touched)">
@@ -59,23 +61,27 @@
               <label>Time</label>
               <ul class="radio-btns times-input-set">
                 <li>
-                  <input type="radio" [value]="'5am-9am'" id="ts1" name="time" formControlName="time" />
+                  <input type="radio" [value]="'5am-9am'" id="ts1" name="time" formControlName="time"
+                    [attr.disabled]="isDisabled(9)" />
                   <label for="ts1">5am-9am</label>
                 </li>
                 <li>
-                  <input type="radio" [value]="'9am-12pm'" id="ts2" name="time" formControlName="time" /><label
-                    for="ts2">9am-12pm</label>
+                  <input type="radio" [value]="'9am-12pm'" id="ts2" name="time" formControlName="time"
+                    [attr.disabled]="isDisabled(12)" /><label for="ts2">9am-12pm</label>
                 </li>
                 <li>
-                  <input type="radio" [value]="'12pm-3pm'" id="ts3" name="time" formControlName="time" />
+                  <input type="radio" [value]="'12pm-3pm'" id="ts3" name="time" formControlName="time"
+                    [attr.disabled]="isDisabled(15)" />
                   <label for="ts3">12pm-3pm</label>
                 </li>
                 <li>
-                  <input type="radio" [value]="'3pm-6pm'" id="ts4" name="time" formControlName="time" />
+                  <input type="radio" [value]="'3pm-6pm'" id="ts4" name="time" formControlName="time"
+                    [attr.disabled]="isDisabled(18)" />
                   <label for="ts4">3pm-6pm</label>
                 </li>
                 <li>
-                  <input type="radio" [value]="'6pm-9pm'" id="ts5" name="time" formControlName="time" />
+                  <input type="radio" [value]="'6pm-9pm'" id="ts5" name="time" formControlName="time"
+                    [attr.disabled]="isDisabled(21)" />
                   <label for="ts5">6pm-9pm</label>
                 </li>
               </ul>
@@ -87,7 +93,6 @@
           <i class="fa fa-circle stopicon" style="font-size:9px; color:lightgray"></i>
           <i class="fa fa-circle stopicon" style="font-size:9px; color:lightgray"></i>
           <i class="fa fa-circle stopicon" style="font-size:9px; color:lightgray"></i>
-          
           <i class='fas fa-map-marker-alt' style='font-size:22px;color:darkblue'></i>
         </div>
       </div>
@@ -98,7 +103,7 @@
       <div class="book-ride extra-info">
         <div class="primary-section">
           <div class="card-title">
-            Offer A Ride
+            Offer a Ride
             <div class="catch-phrase">we can get you a the matches asap!</div>
           </div>
           <div class="form-check form-switch form-switch-md">
@@ -112,13 +117,25 @@
                 <label>Stop 1</label>
                 <input type="text" id="startpoint" formControlName="stop1" />
               </div>
+              <div class="form-invalid-warnings"
+                *ngIf="secondForm.get('stop1')?.invalid && (secondForm.get('stop1')?.dirty || secondForm.get('stop1')?.touched)">
+                No Symbols,spaces are allowed, should have min 3 letters
+              </div>
               <div class="stop">
                 <label>Stop2</label>
                 <input type="text" formControlName="stop2" />
               </div>
+              <div class="form-invalid-warnings"
+                *ngIf="secondForm.get('stop2')?.invalid && (secondForm.get('stop2')?.dirty || secondForm.get('stop2')?.touched)">
+                No Symbols,spaces are allowed, should have min 3 letters
+              </div>
               <div class="stop">
                 <label>Stop3</label>
                 <input type="text" formControlName="stop3" />
+              </div>
+              <div class="form-invalid-warnings"
+                *ngIf="secondForm.get('stop3')?.invalid && (secondForm.get('stop3')?.dirty || secondForm.get('stop3')?.touched)">
+                No Symbols,spaces are allowed, should have min 3 letters
               </div>
               <div formArrayName="allstops">
                 <div *ngFor="  let stop  of allstops let i =index">
@@ -169,14 +186,6 @@
             <i class='fas fa-map-marker-alt' style='font-size:22px;color:darkblue'></i>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="response-message" *ngIf="responseMessage">
-      <div class="success-message" *ngIf="requestSubmitStatus">
-        Request Submitted Sucessfully !!!
-      </div>
-      <div class="success-message red" *ngIf="!requestSubmitStatus">
-        Unexpected Error Has Occured Please try again
       </div>
     </div>
   </div>

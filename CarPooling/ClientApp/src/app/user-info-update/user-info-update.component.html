@@ -1,13 +1,13 @@
 <div class="main-container">
     <div class="top-bar">
-        <img class="home-logo1" src="../../assets/logo (1).png" />
+        <a [routerLink]="'/home'">  <img class="home-logo1" src="../../assets/logo (1).png" /></a>
         <div class="user-profile">
             <div class="dropdown">
                 <button class="dropbtn">{{activeUser.userName}}</button>
                 <div class="dropdown-content">
                     <a [routerLink]="'/infoupdate'">Profile</a>
                     <a [routerLink]="'/profile'">My Rides</a>
-                    <a [routerLink]="'/home/signup'">Logout</a>
+                    <a [routerLink]="'/home/login'" (click)="Logout()">Logout </a>
                 </div>
             </div>
             <img class="user-photo" src="../../assets/logo (1).png" />

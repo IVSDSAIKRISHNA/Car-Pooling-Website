@@ -10,7 +10,8 @@ namespace CarpoolingContracts
     public interface IRide
     {
 
-        //This Method  will  return  all the Matched rides 
+
+        // Will return the Matched rides 
         Task<List<OfferedRide>> MatchedRides(BookRide bookRideInfo);
 
         // Method to get all the Rides Booked by the user Based on UserId

@@ -10,11 +10,12 @@ import { UserService } from '../services/UserService.service';
   styleUrls: ['./user-info-update.component.css'],
 })
 export class UserInfoUpdateComponent implements OnInit {
+
   constructor(
     private fb: FormBuilder,
     private route: Router,
     private userService: UserService
-  ) {}
+  ) { }
 
   activeUser!: User;
   sucessstatus: boolean = false;
@@ -27,12 +28,12 @@ export class UserInfoUpdateComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmpassword: ['', [Validators.required, Validators.minLength(8)]],
       email: ['', [Validators.required, Validators.email]],
-      phonenumber: ['',[ Validators.required, Validators.minLength(10)]],
+      phonenumber: ['', [Validators.required, Validators.minLength(10)]],
     });
   }
 
- 
 
+  //Updates the Information of the user by taking input from the form
   UpdateInfo() {
     let newuser: User = {
       userName: this.userInfoForm.get('username')?.value,
@@ -47,4 +48,10 @@ export class UserInfoUpdateComponent implements OnInit {
         console.log(this.sucessstatus);
       });
   }
+
+  //Logs out the User and Clears the Local Storage
+  Logout() {
+    localStorage.clear();
+  }
+
 }

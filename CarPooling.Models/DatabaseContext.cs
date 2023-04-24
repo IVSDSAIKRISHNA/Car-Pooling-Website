@@ -19,7 +19,7 @@ namespace Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Data Source=LAPTOP-NIT4DTQC\\SQLEXPRESS;DataBase=Car-PoolingDb; Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            optionsBuilder.UseSqlServer("Server=tcp:carpooling5.database.windows.net,1433;Initial Catalog=CarPoolDatabase1;Persist Security Info=False;User ID=azureadmin;Password=Zebronics1@345;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
     }
 }

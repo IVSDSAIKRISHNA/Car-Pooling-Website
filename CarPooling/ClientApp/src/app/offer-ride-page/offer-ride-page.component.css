@@ -1,43 +1,44 @@
-.main-container{
-  background-image: url("../../assets/img4.png");
-  width: 100vw;
-  height: 100vh;
-  background-repeat: no-repeat;
-  background-position: center bottom;
-  background-size: 100%;
-  background-blend-mode: saturation;
+.main-container {
+    background-image: url("../../assets/img4.png");
+    width: 100vw;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: 100%;
+    background-blend-mode: saturation;
 }
 
-select{
+select {
     border: none;
     appearance: none;
     font-size: 20px;
     font-weight: 800;
 }
-option{
+
+option {
     /* margin-top: 20px; */
     font-size: 15px;
     font-weight: 700;
 }
 
 .top-bar {
-  display: flex;
-  justify-content: space-between;
-  padding: 30px 45px;
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 45px;
 }
 
 .user-profile {
-  display: flex;
-  column-gap: 10px;
+    display: flex;
+    column-gap: 10px;
 }
 
 .user-name {
-  margin-top: 20px;
-  font-size: 20px;
-  font-weight: 900;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 900;
 }
 
-div>label{
+div>label {
     color: gray;
     margin-top: 10px;
 }
@@ -65,21 +66,24 @@ div>label{
     width: 70%;
     padding: 30px;
 }
-.primary-section{
+
+.primary-section {
     display: flex;
     justify-content: space-between;
     padding: 20px;
 }
 
-.card-title{
+.card-title {
     color: black;
     font-size: 45px;
     font-weight: 500;
 }
-.catch-phrase{
+
+.catch-phrase {
     font-size: 15px;
     color: gray;
 }
+
 /* For the Input Bars in the Form */
 input {
     border-top-style: hidden;
@@ -87,9 +91,10 @@ input {
     border-left-style: hidden;
     border-bottom-style: groove;
     border-bottom-color: gray;
-    width: 21vw;
+    width: 20vw;
 }
-li>input{
+
+li>input {
     border-top-style: hidden;
     border-right-style: hidden;
     border-left-style: hidden;
@@ -97,57 +102,66 @@ li>input{
     border-bottom-color: gray;
     width: 1vw;
 }
-.submit-button{
+
+.submit-button {
     margin-top: 10px;
 }
 
-.success-message{
+.success-message {
     position: absolute;
     top: 50%;
     font-size: 40px;
     color: green;
 }
-.success-message.red{
+
+.success-message.red {
     color: red;
     font-size: 35px;
 }
-.ride-submit{
-    background-color: rgba(255,172,25,255);
+
+.ride-submit {
+    background-color: rgba(255, 172, 25, 255);
     color: white;
     font-size: 20px;
     font-weight: bold;
     border: none;
     border-radius: 60px;
     width: 7vw;
-    height: 6vh;
+    height: 4vh;
     margin-top: 40px;
 }
-.heading{
-    color: rgba(147,25,255,255);
+
+.heading {
+    color: rgba(147, 25, 255, 255);
     font-size: 40px;
-    font-weight: bold
+    font-weight: bold;
 }
+
 input:focus {
     outline: none;
     border-bottom-color: blue;
 }
-.form-switch{
-   
-    margin:40px 40px 0px 0px;
+
+.form-switch {
+    margin: 40px 40px 0px 0px;
 }
+
 .form-check-input {
     transform: scale(2);
 }
-form{
+
+form {
     display: grid;
     row-gap: 15px;
-    padding: 20px;
+    padding: 20px 20px 38px 20px;
 }
+
 .first-form>div {
     display: flex;
     flex-direction: column;
 }
-.form-invalid-warnings{
+
+.form-invalid-warnings {
     color: red;
 }
 
@@ -192,94 +206,106 @@ form{
     border-radius: 60px;
 }
 
-.next{
+.next {
     background-color: white;
-    border:none;
+    border: none;
     color: #9319ff;
     font-size: 25px;
     margin-left: 67%;
 }
 
-.capacity-selector{
+.capacity-selector {
     width: 60px;
     height: 60px;
     border-radius: 50%;
 }
 
-.price>input{
-width: 4vw;
-font-size: 30px;
-height: 50px;
+.price>input {
+    width: 4vw;
+    font-size: 30px;
+    height: 50px;
 }
 
-.ride-details{
+.ride-details {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-.ride-details2{
+
+.ride-details2 {
     display: flex;
     padding-right: 10px;
 }
 
-.different-input{
+.different-input {
     display: grid;
     grid-template-columns: auto auto;
 }
 
-.ride-details2>div{
+.ride-details2>div {
     display: flex;
     flex-direction: column;
 }
-.stopicon2{
+
+.stopicon2 {
     position: relative;
     left: 23x;
 }
-.stop{
+
+.stop {
     display: flex;
     flex-direction: column;
     row-gap: 5px;
     margin-top: 5px;
 }
-.price{
+
+.price {
     display: grid;
     position: relative;
-    left: -45px;
-    top: 10px;
-
+    top: 20px;
 }
-.price>label{
+
+.price>label {
     width: fit-content;
 }
-.no-of-seats{
+
+.no-of-seats {
     margin-top: 10px;
-    
 }
-.all-stops{
+
+.all-stops {
     width: fit-content;
     height: 26vh;
     overflow-y: auto;
 }
-.secondary-section{
+
+.secondary-section {
     display: flex;
-    padding-right: 15px;
+    padding-right: 20px;
 }
-.ride-icon{
+
+.second-form {
+    display: grid;
+    row-gap: 15px;
+    padding: 20px 20px 27px 20px;
+}
+
+.ride-icon {
     margin-top: 35px;
     height: 40%;
     display: flex;
     flex-direction: column;
     row-gap: 14px;
 }
-.stopicon{
+
+.stopicon {
     position: relative;
     left: 3px;
 }
 
-
 /* Styles for Radio Buttons in the second card */
 
-.no-of-seats>ul>li>label{
+.no-of-seats>ul>li>label {
     padding-top: 15px;
     padding-left: 20px;
     font-size: 20px;
@@ -288,37 +314,36 @@ height: 50px;
     border-radius: 50%;
 }
 
-.avaliable-slots{
+.avaliable-slots {
     width: fit-content;
 }
-
 
 /* For the Custom Scroll Bar  */
 ::-webkit-scrollbar {
     width: 10px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888; 
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  }
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
 
 /* for the plus icon  */
-.plus-icon{
+.plus-icon {
     color: blue;
     size: 24px;
     z-index: 10;
-    margin-left: 380px;
+    margin-left: 370px;
     top: -30px;
     position: relative;
 }
@@ -333,35 +358,124 @@ height: 50px;
     border: none;
     cursor: pointer;
     background-color: white;
-  }
-  
-  .dropdown {
+}
+
+.dropdown {
     position: relative;
     top: 5px;
     display: inline-block;
-  }
-  
-  .dropdown-content {
+}
+
+.dropdown-content {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-  }
-  
-  .dropdown-content a {
+}
+
+.dropdown-content a {
     color: gray;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-  }
-  
-  .dropdown-content a:hover {
+}
+
+.dropdown-content a:hover {
     color: white;
     background-color: rgba(147, 25, 255, 255);
-  }
-  
-  .dropdown:hover .dropdown-content {
+}
+
+.dropdown:hover .dropdown-content {
     display: block;
-  }
+}
+
+@media only screen and (max-width: 750px) {
+    .top-bar {
+        padding: 20px 15px;
+    }
+
+    .main-container {
+        background-image: none;
+    }
+
+    .offer-ride-requestts {
+        display: grid;
+        row-gap: 20px;
+    }
+
+    input {
+        width: 60vw;
+    }
+
+    .radio-btns {
+        grid-column-gap: 60px;
+    }
+
+    .different-input>.avaliable-slots>.no-of-seats>.radio-btns {
+        grid-column-gap: 80px;
+    }
+
+    .radio-btns label {
+        padding: 3px;
+        font-size: 4vw;
+        border-radius: 60px;
+    }
+
+    .plus-icon {
+        margin-left: 215px;
+    }
+
+    .all-stops {
+        height: 30vh;
+    }
+
+    .next {
+        margin-left: 50%;
+        font-size: 25px;
+        margin-top: 5%;
+    }
+
+    .card-title {
+        font-size: 35px;
+    }
+
+    .form-switch {
+        margin: 20px 0px 0px 0px;
+    }
+
+    form {
+        padding: 20px 20px 20px 20px;
+    }
+
+    .no-of-seats>ul>li>label {
+        padding-top: 15px;
+        padding-left: 22px;
+        width: 60px;
+        height: 60px;
+    }
+
+    .different-input {
+        display: grid;
+        grid-template-columns: auto;
+        row-gap: 30px;
+    }
+
+    .price>input {
+        width: 18vw;
+        font-size: 30px;
+        height: 30px;
+    }
+
+    .ride-submit {
+        width: 30vw;
+        height: 5vh;
+    }
+
+    .dropbtn {
+        padding: 0px;
+        margin-top: 20px;
+        margin-right: 3px;
+    }
+}

@@ -7,37 +7,47 @@
     <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" (click)="onClick()">
       <div class="form-floating">
         <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
-          formControlName="email">
+          formControlName="email" />
         <label for="floatingInput">Enter Email Id </label>
       </div>
 
-      <!-- <input type="text" formControlName="email" id="floatingInput" placeholder="Enter Email Id" /> -->
-
-
-      <div class="form-invalid-warning" 
-        *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+      <div class="form-invalid-warning" *ngIf="
+          loginForm.get('email')?.invalid &&
+          (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)
+        ">
         ***Please provide a valid email address.
       </div>
 
       <div class="form-floating">
         <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
-          formControlName="password">
+          formControlName="password" [type]="hide ? 'password' : 'text'" />
         <label for="floatingPassword">Enter Password </label>
+        <i class="fas fa-eye" style="font-size: 36px" *ngIf="!hide" (click)="VisibilityToggle()"></i>
+        <i class="fas fa-eye-slash" style="font-size: 36px" *ngIf="hide" (click)="VisibilityToggle()"></i>
       </div>
 
-      <!-- <input type="password" formControlName="password" placeholder=" Enter Password" /> -->
-      <div class="form-invalid-warning" 
-        *ngIf="loginForm.get('password')?.invalid && ((loginForm.get('password')?.dirty)|| loginForm.get('password')?.touched)">
+      <div class="form-invalid-warning2" *ngIf="
+          loginForm.get('password')?.invalid &&
+          (loginForm.get('password')?.dirty ||
+            loginForm.get('password')?.touched)
+        ">
         ***Password Should be atleast 8 characters long
       </div>
-      <button class="submit" type="submit" [disabled]="loginForm.invalid">Submit</button>
+      <button class="submit" type="submit" [disabled]="loginForm.invalid">
+        Submit
+      </button>
     </form>
 
-    <div class="sign-up">Not a Member Yet ? <a [routerLink]="'/user/signup'">Sign Up</a>
-    <hr></div>
-
+    <div class="sign-up">
+      Not a Member Yet ? <a [routerLink]="'/user/signup'">Sign Up</a>
+      <hr />
+    </div>
   </div>
-  <div class="alert alert-danger" *ngIf="invalidDetails && loginForm.get('email')?.value!='' && loginForm.get('password')?.value!=''">
+  <div class="alert alert-danger" *ngIf="
+      invalidDetails &&
+      loginForm.get('email')?.value != '' &&
+      loginForm.get('password')?.value != ''
+    ">
     Invalid Credentials Try again
   </div>
   <div class="town-image">

@@ -22,7 +22,6 @@ select {
 }
 
 option {
-  /* margin-top: 20px; */
   font-size: 15px;
   font-weight: 700;
 }
@@ -89,7 +88,7 @@ option {
 }
 
 .ride-info {
-  width: 80%;
+  width: 70%;
   background-color: white;
   box-shadow: 0 0 5px 3px gray;
   border-radius: 5px;
@@ -119,8 +118,9 @@ option {
 
 .ride-details {
   display: flex;
+  column-gap: 20px;
   margin-top: 10px;
-  column-gap: 5vh;
+  padding-right: 10px;
 }
 
 .left-half {
@@ -130,7 +130,7 @@ option {
 }
 
 .right-half {
-  margin-left: 100px;
+  /* margin-left: 100px; */
   display: grid;
 }
 
@@ -149,6 +149,22 @@ span {
   color: red;
   font-size: 30px;
   margin-top: 30px;
+}
+
+.source-with-icon {
+  display: flex;
+  column-gap: 30px;
+}
+
+.ride-icon2 {
+  display: flex;
+  column-gap: 5px;
+  margin-top: 5px;
+}
+
+.stopicon2 {
+  position: relative;
+  top: 3px;
 }
 
 /* For the Custom Scroll Bar  */
@@ -214,4 +230,64 @@ span {
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+@media only screen and (max-width: 750px) {
+
+  .rides {
+    width: 70%;
+    height: 70%;
+    position: absolute;
+    left: 5%;
+    top: 20%;
+
+    margin-top: 0%;
+    margin-left: 0%;
+    padding: 3px;
+    display: grid;
+    row-gap: 50px;
+  }
+
+  .booked-ride-header {
+    height: fit-content;
+    width: fit-content;
+    padding: 10px;
+  }
+
+  .offered-ride-header {
+    height: fit-content;
+    width: fit-content;
+    padding: 10px;
+  }
+
+  .booked-rides {
+    width: fit-content;
+    overflow-y: unset;
+    overflow-x: unset;
+    padding: 0px;
+  }
+
+  .offered-rides {
+    width: fit-content;
+    overflow-y: unset;
+    overflow-x: unset;
+    padding: 0px;
+    height: fit-content;
+  }
+
+  .ride-info {
+    width: 100%;
+    border-radius: 5px;
+    margin: 25px 0px;
+    padding: 5px 10px 10px 10px;
+
+  }
+
+  .main-container {
+    background-image: none;
+  }
+
+  .top-bar {
+    padding: 30px 10px;
+  }
 }

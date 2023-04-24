@@ -10,19 +10,19 @@ import { User } from 'src/models/user';
 export class HomePageComponent implements OnInit {
 
   constructor(
-    private route:Router
+    private route: Router
   ) {
-   }
-   
+
+  }
+  //Current logged in user
   activeUser!: User
-  
+
   ngOnInit(): void {
-    this.activeUser=JSON.parse(String(localStorage.getItem("user")));
-   
+    this.activeUser = JSON.parse(String(localStorage.getItem("user")));
   }
 
- 
-
-
-
+  //Gets triggerd when the user Clicks on Logout, the page gets Re Routed and the Local Storage is Cleared
+  Logout() {
+    localStorage.clear();
+  }
 }

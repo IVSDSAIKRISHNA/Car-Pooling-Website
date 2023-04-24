@@ -18,6 +18,7 @@ namespace CarPooling_Services
             this._dbContext = dbContext;
         }
 
+       
         //Method to Get the Previously Booked Rides 
         public async Task<List<BookRide>> GetBookedRide(int userId)
         {
@@ -28,7 +29,7 @@ namespace CarPooling_Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception(ex.Source);
             }
         }
 
@@ -43,9 +44,9 @@ namespace CarPooling_Services
                
 
 
-                string source = bookRideRequest.StartPoint;
+                string source = bookRideRequest.StartPoint.ToLower();
               
-                string destination = bookRideRequest.EndPoint;
+                string destination = bookRideRequest.EndPoint.ToLower();
                 
                 int sourceIndex = 0;
                 int destinationIndex = 0;
@@ -67,17 +68,21 @@ namespace CarPooling_Services
                 if (completePath.Contains(source) && completePath.Contains(destination))
                 {
                     
+                    
                     for (int i = 0; i < completePath.Count; i++)
                     {
+                        
                         if (completePath[i].ToLower() == source.ToLower())
                         {
-
+                           
                             sourceIndex = i;
+                            
                         }
                         if (completePath[i].ToLower() == destination.ToLower())
                         {
-
+                            
                             destinationIndex = i;
+                            
                         }
                     }
 
@@ -86,10 +91,9 @@ namespace CarPooling_Services
                 // And then Merging them back to the String so that we can store it in the Database
                 IEnumerable<string> vacancy = selectedRide.Capacity.Split(".");
                 List<int> vacancies = vacancy.Select(n => Convert.ToInt32(n)).ToList();
-
+               
                 for (int i = sourceIndex; i < destinationIndex; i++)
                 {
-
                     vacancies[i] -= 1;
                 }
                 string newCapacity = "";
@@ -101,6 +105,7 @@ namespace CarPooling_Services
                 newCapacity = newCapacity.Substring(1, newCapacity.Length - 1);
 
                 selectedRide.Capacity = newCapacity;
+               
 
 
                 // Updating the Status of the Selected Ride After Booking 
@@ -118,22 +123,17 @@ namespace CarPooling_Services
                 bookRideRequest.OffererName = selectedRide.OffererName;
                 bookRideRequest.IsActive = false;
                 await this.UserBookRide(bookRideRequest.BookerUserId, bookRideRequest);
-                try
-                {
+                
                    
                     await _dbContext.SaveChangesAsync();
                     return bookRideRequest;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                    throw ex;
-                }
+                
+               
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                throw e;
+                throw new Exception(e.Source);
             }
 
         }
@@ -150,7 +150,7 @@ namespace CarPooling_Services
             }
             catch (Exception e)
             {
-                throw e;
+                throw new Exception(e.Source);
             }
         }
 
@@ -168,32 +168,36 @@ namespace CarPooling_Services
                 List<OfferedRide> matchedRides = new List<OfferedRide>();
 
                 // Extraction of Source and Destination and their respective Indexes
-                string source = bookRideInfo.StartPoint;
-                string destination = bookRideInfo.EndPoint;
+                string source = bookRideInfo.StartPoint.ToLower();
+                string destination = bookRideInfo.EndPoint.ToLower();
                 int sourceIndex = 0;
                 int destinationIndex = 0;
                 foreach (OfferedRide ride in allRides)
                 {
                     List<string> completePath = new List<string>();
                     completePath.Add(ride.StartPoint);
+                    Console.WriteLine(ride.IntermediatePoints);
                     List<string> intermediateStops = ride.IntermediatePoints.Split(".").ToList();
-                    if (intermediateStops.Count != 1 && intermediateStops[0] != " ")
+                    if (intermediateStops.Count != 0 && intermediateStops[0] != " ")
                     {
                         completePath.InsertRange(1, intermediateStops);
                     }
-                    completePath.Add(ride.EndPoint);
-                    
 
+                    completePath.Add(ride.EndPoint);
+
+                    completePath = completePath.Select(p => p.ToLower()).ToList();
+                    
 
                     if (completePath.Contains(source) && completePath.Contains(destination) && ride.TimeSlot == bookRideInfo.TimeSlot && ride.Date == bookRideInfo.Date)
                     {
+                        
                         for (int i = 0; i < completePath.Count; i++)
                         {
-                            if (completePath[i].ToLower() == source.ToLower())
+                            if (completePath[i] == source)
                             {
                                 sourceIndex = i;
                             }
-                            if (completePath[i].ToLower() == destination.ToLower())
+                            if (completePath[i] == destination)
                             {
                                 destinationIndex = i;
                             }
@@ -225,7 +229,7 @@ namespace CarPooling_Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception(ex.Source);
             }
         }
 
@@ -243,7 +247,7 @@ namespace CarPooling_Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception(ex.Source);
             }
 
         }
@@ -255,11 +259,7 @@ namespace CarPooling_Services
         {
             try
             {
-                // OfferedRide newRide = offeredRideRequest;
                 string offererName = this._dbContext.Users.Where(n => n.UserId == userId).Select(n => n.UserName).FirstOrDefault();
-                //newRide.OffererName=offererName;
-                //newRide.OffererId = userId;
-                //_dbContext.OfferedRides.Add(newRide);
                 offeredRideRequest.OffererName = offererName;
                 offeredRideRequest.OffererId = userId;
                 _dbContext.OfferedRides.Add(offeredRideRequest);
@@ -269,7 +269,7 @@ namespace CarPooling_Services
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                throw ex;
+                throw new Exception(ex.Source);
             }
         }
 
@@ -295,7 +295,9 @@ namespace CarPooling_Services
 
                 return true;
             }
-            catch (Exception ex) { throw ex; }
+            catch (Exception ex) { 
+                throw new Exception(ex.Source); 
+            }
 
         }
 
@@ -322,7 +324,7 @@ namespace CarPooling_Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception(ex.Source);
             }
         }
 

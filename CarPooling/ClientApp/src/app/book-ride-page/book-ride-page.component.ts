@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { ResponseBase } from 'src/models/response-base';
 import { User } from 'src/models/user';
 import { OfferedRide } from 'src/models/offered-ride';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-book-ride-page',
@@ -17,8 +19,9 @@ export class BookRidePageComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private rideService: RideServiceService,
-    private route:Router
-  ) {}
+    private route: Router,
+    private toastr: ToastrService
+  ) { }
 
   //Reactive Form for the Form Group
   bookRideForm!: FormGroup;
@@ -28,23 +31,23 @@ export class BookRidePageComponent implements OnInit {
   currentDate!: string
 
 
-
-  matchedRideStatus:boolean = true
-  responseStatus:boolean=false
-  successStatus:boolean=false  
+  //Boolean Vakues Dealing with the Visibility of the Ticket that is booked and the Book Ride Request
+  matchedRideStatus: boolean = true
+  responseStatus: boolean = false
+  successStatus: boolean = false
 
   ngOnInit(): void {
-      //Initialising the Date
+    //Initialising the Date
     this.FormatDate()
     // Getting the Data from Local Storage And Assigning it to the Variable
     this.activeUser = JSON.parse(localStorage.getItem("user")!);
 
-    this.activeUser=JSON.parse(String(localStorage.getItem("user")));
-    
+    this.activeUser = JSON.parse(String(localStorage.getItem("user")));
+
     // Adding Various Form Validations
     this.bookRideForm = this.fb.group({
-      source: ['', Validators.required],
-      destination: ['', Validators.required],
+      source: ['', [Validators.required, Validators.pattern("^[A-Z a-z 0-9]+$"), Validators.minLength(3)]],
+      destination: ['', [Validators.required, Validators.pattern("^[A-Z a-z 0-9]+$"), Validators.minLength(3)]],
       date: ['', Validators.required],
       time: ['', Validators.required]
     });
@@ -61,15 +64,17 @@ export class BookRidePageComponent implements OnInit {
       bookerUserId: 0
     }
 
-    // Array of All The Matched Rides 
+  // Array of All The Matched Rides 
   allMatchedRides?: OfferedRide[]
-
-  bookedRide?:BookRide
+  bookedRide?: BookRide
 
   //Function which gets triggered Upon Submitting the Form, This method makes the Http Call using service  and Registers the Request To The Server
   BookRideFromSubmission() {
     this.bookRideRequest.startPoint = this.bookRideForm.get('source')?.value;
+    this.bookRideRequest.startPoint = this.bookRideRequest.startPoint.replace(/\s+/g, "").toLowerCase();
     this.bookRideRequest.endPoint = this.bookRideForm.get('destination')?.value;
+    this.bookRideRequest.endPoint = this.bookRideRequest.endPoint.replace(/\s+/g, "").toLowerCase();
+
     this.bookRideRequest.date = this.bookRideForm.get('date')?.value;
     this.bookRideRequest.isActive = true;
     this.bookRideRequest.timeSlot = this.bookRideForm.get('time')?.value;
@@ -85,20 +90,20 @@ export class BookRidePageComponent implements OnInit {
     this.bookRideForm.reset();
   }
 
+
   // Method to Find All the Matching Rides with respect to the Current Request 
   FindallMatchedRides() {
     this.rideService.MatchedRides(this.bookRideRequest).subscribe((data) => {
       this.allMatchedRides = data.response
-      console.table(this.allMatchedRides)
-      if(this.allMatchedRides==null){
-        this.matchedRideStatus=false
+      if (this.allMatchedRides == null) {
+        this.toastr.warning("There are No Matching Rides At The Moment")
       }
     });
   }
 
-  
-  onClick(){
-    this.matchedRideStatus=true
+  //method which deals with the Visibility of the Matched Rides
+  onClick() {
+    this.matchedRideStatus = true
   }
 
   // Method to Format the date into the Required Format
@@ -125,19 +130,41 @@ export class BookRidePageComponent implements OnInit {
 
   }
 
-
- 
-
-
- 
-
-  BookRide(selectedRideId:number){
-    this.rideService.ConfirmRide(selectedRideId,this.bookRideRequest).subscribe((data)=>{
-     this.bookedRide=data.response
-     console.log(this.bookedRide)   
-     this.successStatus=true;
-     this.responseStatus=true;
-     });
+  //Method Which Books the Ride By taking the Ride Id 
+  BookRide(selectedRideId: number) {
+    this.rideService.ConfirmRide(selectedRideId, this.bookRideRequest).subscribe((data) => {
+      this.bookedRide = data.response
+      this.successStatus = true;
+      this.responseStatus = true;
+    });
   }
 
+
+  //Method Which Logs OUt by clearing the Local Storage 
+  Logout() {
+    localStorage.clear();
+  }
+
+  //Boolean Value which holds true, if the selected date is same as current date and vice-versa
+  sameDate: boolean = false;
+
+  //Method which gets triggered when the date is Selected
+  OnDateSelection() {
+    let dateValue = this.bookRideForm.get('date')?.value;
+    if (dateValue == this.currentDate) {
+      this.sameDate = true
+    }
+    else {
+      this.sameDate = false
+    }
+  }
+
+  //Method Which Disables the Button based on the current time and the slot time 
+  isDisabled(value: number) {
+    let currentTime = new Date().getHours();
+    if (value <= currentTime && this.sameDate) {
+      return true;
+    }
+    return null;
+  }
 }

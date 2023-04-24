@@ -1,148 +1,206 @@
 ﻿using CarpoolingContracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 
 namespace Car_Pooling.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class RideServiceController : ControllerBase
     {
-       private readonly IRide _rides;
+        private readonly IRide _rides;
         public RideServiceController(IRide ride)
         {
-            _rides= ride;
+            _rides = ride;
         }
 
         // Method Which Returns The Matched Rides that are Currently Active  With Respect to the BookRide
 
-        [HttpPost("matchedrides")]
+        [HttpPost("matchedrides"),Authorize]
         public async Task<ActionResult<ResponseBase<List<OfferedRide>>>> MatchedRides(BookRide bookRide)
         {
-            
-            List<OfferedRide> matchedRides= await _rides.MatchedRides(bookRide);
-            if (matchedRides.Count == 0)
+            try
+            {
+
+                List<OfferedRide> matchedRides = await _rides.MatchedRides(bookRide);
+                if (matchedRides.Count == 0)
+                {
+                    return Ok(new ResponseBase<List<OfferedRide>>
+                    {
+                        Response = null,
+                        ErrorMessage = "No Matching Rides \nPlease Try Again After Sometime"
+                    });
+                }
+                return Ok(new ResponseBase<List<OfferedRide>>
+                {
+                    Response = matchedRides,
+                    ErrorMessage = null
+                });
+            }catch(Exception ex)
             {
                 return Ok(new ResponseBase<List<OfferedRide>>
                 {
                     Response = null,
-                    ErrorMessage = "No Matching Rides \nPlease Try Again After Sometime"
+                    ErrorMessage =ex.Message
                 });
             }
-            return Ok(new ResponseBase<List<OfferedRide>>
-            {
-                Response = matchedRides,
-                ErrorMessage = "Sucessfully Retrived the Matching Rides"
-            });
         }
 
 
-      
+
         //Method Which Returns All the Previously Booked Rides by a User 
 
-        [HttpGet("bookedrides")]
+        [HttpGet("bookedrides"),Authorize]
         public async Task<ActionResult<List<BookRide>>> GetBookedRide(int userId)
         {
-            List<BookRide> rideInfo= await  _rides.GetBookedRide(userId);
-            if (rideInfo.Count == 0)
+            try
+            {
+                List<BookRide> rideInfo = await _rides.GetBookedRide(userId);
+                if (rideInfo.Count == 0)
+                {
+                    return Ok(new ResponseBase<List<BookRide>>
+                    {
+                        Response = null,
+                        ErrorMessage = "You Have Not Offered any Rides Before "
+                    });
+                }
+                return Ok(new ResponseBase<List<BookRide>>
+                {
+                    Response = rideInfo,
+                    ErrorMessage = null
+                });
+            }catch (Exception ex)
             {
                 return Ok(new ResponseBase<List<BookRide>>
                 {
                     Response = null,
-                    ErrorMessage = "You Have Not Offered any Rides Before "
-                });
+                    ErrorMessage = ex.Message
+                }) ;
             }
-            return Ok(new ResponseBase<List<BookRide>>
-            {
-                Response = rideInfo,
-                ErrorMessage = "Sucessfully retrived the Previsouly Booked Rides"
-            });
-
         }
 
 
         // Method Which Returns All the Previously Offered Rides by a User
-        [HttpGet("offeredrides")]
+        [HttpGet("offeredrides"), Authorize]
         public async Task<ActionResult<ResponseBase<List<OfferedRide>>>> GetOfferedRide(int userId)
         {
-            List<OfferedRide> rideInfo = await _rides.GetOfferedRide(userId);
-            if (rideInfo.Count == 0)
+            try
+            {
+                List<OfferedRide> rideInfo = await _rides.GetOfferedRide(userId);
+                if (rideInfo.Count == 0)
+                {
+                    return Ok(new ResponseBase<List<OfferedRide>>
+                    {
+                        Response = null,
+                        ErrorMessage = "You Have Not Offered any Rides Before "
+                    });
+                }
+                return Ok(new ResponseBase<List<OfferedRide>>
+                {
+                    Response = rideInfo,
+                    ErrorMessage = null
+                });
+            }catch(Exception ex)
             {
                 return Ok(new ResponseBase<List<OfferedRide>>
                 {
                     Response = null,
-                    ErrorMessage = "You Have Not Offered any Rides Before "
-                }) ;
+                    ErrorMessage = ex.Message
+                });
             }
-            return Ok(new ResponseBase<List<OfferedRide>>
-            {
-                Response = rideInfo,
-                ErrorMessage = "Sucessfully retrived the Previsouly Booked Rides"
-            });
         }
 
 
         // Method  To Book The Ride And Give The Confirmed Ride Infromation to the User
-        [HttpPost("rideid")]
-        public async Task<ActionResult<ResponseBase<BookRide>>> GetConfirmationMessage(int rideId,BookRide bookRideRequest)
+        [HttpPost("rideid"), Authorize]
+        public async Task<ActionResult<ResponseBase<BookRide>>> GetConfirmationMessage(int rideId, BookRide bookRideRequest)
         {
-            BookRide acceptedRideInfo= await  _rides.BookRide(rideId,bookRideRequest);
-            return Ok(
-                new ResponseBase<BookRide>
-                {
-                    Response = acceptedRideInfo,
-                    ErrorMessage = "Booked The Ride sucessfully "
+            try
+            {
+                BookRide acceptedRideInfo = await _rides.BookRide(rideId, bookRideRequest);
+                return Ok(
+                    new ResponseBase<BookRide>
+                    {
+                        Response = acceptedRideInfo,
+                        ErrorMessage = null
 
-                });
+                    });
+            }catch (Exception ex) {
+                return Ok(new ResponseBase<List<BookRide>>
+                {
+                    Response = null,
+                    ErrorMessage = ex.Message
+                }) ;
+
+            }
         }
 
 
         // Method to Register the User Book Ride Request
-        [HttpPost("bookride")]
-        public async Task<ActionResult<ResponseBase<bool>>> UserBookRide(int userId,BookRide bookRideRequest)
+        [HttpPost("bookride"), Authorize]
+        public async Task<ActionResult<ResponseBase<bool>>> UserBookRide(int userId, BookRide bookRideRequest)
         {
-            bool status = await _rides.UserBookRide(userId, bookRideRequest);
-            if (status)
+            try
             {
+                bool status = await _rides.UserBookRide(userId, bookRideRequest);
+                if (status)
+                {
+                    return Ok(new ResponseBase<bool>
+                    {
+                        Response = status,
+                        ErrorMessage = null
+                    });
+                    ;
+                }
                 return Ok(new ResponseBase<bool>
                 {
-                    Response = status,
-                    ErrorMessage = "Sucessfully Registered The Request "
+                    Response = false,
+                    ErrorMessage = "Could Not Register The Ride"
                 });
-                ;
+            }catch(Exception ex) {
+                return Ok(new ResponseBase<List<bool>>
+                {
+                    Response = null,
+                    ErrorMessage =ex.Message
+                });
             }
-            return Ok(new ResponseBase<bool>
-            {
-                Response = false,
-                ErrorMessage = "Could Not Register The Ride"
-            });
-            ;
         }
 
 
 
         // Method to Register the User Offer Ride Request
 
-        [HttpPost("offerride")]
+        [HttpPost("offerride"), Authorize]
         public async Task<ActionResult<ResponseBase<bool>>> UserOfferRide(int userId, OfferedRide offerRideRequest)
         {
-            bool status = await _rides.UserOfferRide(userId, offerRideRequest);
-            if (status)
+            try
             {
+                bool status = await _rides.UserOfferRide(userId, offerRideRequest);
+                if (status)
+                {
+                    return Ok(new ResponseBase<bool>
+                    {
+                        Response = status,
+                        ErrorMessage = null
+                    });
+                    ;
+                }
                 return Ok(new ResponseBase<bool>
                 {
-                    Response = status,
-                    ErrorMessage= "Sucessfully Registered The Request "
-                }) ;
-                ;
+                    Response = false,
+                    ErrorMessage = "Could Not Register The Ride"
+                });
+            }catch(Exception ex) {
+                return Ok(new ResponseBase<List<bool>>
+                {
+                    Response = null,
+                    ErrorMessage =ex.Message
+                });
             }
-            return Ok(new ResponseBase<bool>
-            {
-                Response = false,
-                ErrorMessage = "Could Not Register The Ride"
-            });
-            ;
         }
     }
 }

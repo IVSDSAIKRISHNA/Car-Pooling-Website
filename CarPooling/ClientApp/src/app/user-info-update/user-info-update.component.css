@@ -99,7 +99,6 @@ div > label {
   font-size: 20px;
 }
 div > input {
-  width: 15vw;
   height: 5vh;
   border-top-style: hidden;
   border-right-style: hidden;
@@ -173,4 +172,17 @@ input::-webkit-inner-spin-button {
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+@media only screen and (max-width: 750px){
+  
+.top-bar{
+  padding: 30px 5px;
+}
+.update-profile{
+  margin:2vh 2vw 5vh 2vw;
+}
+.title{
+  font-size: 30px;
+}
 }

@@ -1,10 +1,13 @@
 ﻿using CarpoolingContracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using System.Data;
 
 namespace Car_Pooling.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class UserServiceController : ControllerBase
@@ -20,63 +23,93 @@ namespace Car_Pooling.Controllers
         //Method to Carry Out UserRegistration
         [HttpPost("registration")]
         public async Task<ActionResult<ResponseBase<bool>>> UserRegistration(User newUser)
-        {   
-            bool status = await _user.UserRegistration(newUser);
-            if(status) 
+        {
+            try
             {
-                return Ok(new ResponseBase<bool>() 
+                bool status = await _user.UserRegistration(newUser);
+                if (status)
                 {
-                    Response=status,
-                    ErrorMessage = "Registration Successfull"
-                });
+                    return Ok(new ResponseBase<bool>()
+                    {
+                        Response = status,
+                        ErrorMessage = null
+                    });
+                }
+                return Ok(new ResponseBase<bool>()
+                {
+                    Response = status,
+                    ErrorMessage = "Could Not Register  \n Please Try again after Sometime "
+                }); 
+
             }
-            return Ok(new ResponseBase<bool>() 
+            catch(Exception ex)
             {
-                Response=status,
-                ErrorMessage = "Could Not Register  \n Please Try again after Sometime "
-            });
+                return Ok(new ResponseBase<bool>()
+                {
+                    Response = false,
+                    ErrorMessage = ex.Message
+
+                }) ;
+            }
         }
 
         //Method to Carry Out Login of the User 
-        [HttpGet("login")]
-        public async Task<ActionResult<ResponseBase<User>>> UserLogin(string userEmailId,string passWord)
-        {
-           
-            User loggedInUser=await _user.UserLogin(userEmailId, passWord);
-            if(loggedInUser!=null)
+        [HttpPost("login")]
+        public async Task<ActionResult<ResponseBase<User>>> UserLogin(User user)
+        { 
+
+            try
+            {
+                User loggedInUser =  await  _user.UserLogin(user.Email,user.Password);
+                return Ok(new ResponseBase<User>()
+                {
+                    Response = loggedInUser,
+                    ErrorMessage = null
+                });
+            }
+            catch(Exception ex)
             {
                 return Ok(new ResponseBase<User>()
                 {
-                    Response=loggedInUser,
-                    ErrorMessage = "Login Successful!"
+                    Response = null,
+                    ErrorMessage = ex.Message
                 });
             }
-            return NotFound( new ResponseBase<User>() 
-            {
-                Response=loggedInUser,
-                ErrorMessage="Email or Password is InCorrect \n Please Try Again"
-            });
         }
 
 
         //Method to Update the User Profile 
         [HttpPut("userinfoupdate")]
+        [Authorize]
         public async Task<ActionResult<ResponseBase<bool>>> UserUpdateProfile(User newUserDetails,int userId)
         {
-            bool updateStatus= await _user.UserUpdateProfile(newUserDetails,userId);
-            if (updateStatus)
+           
+            try
             {
+                bool updateStatus = await _user.UserUpdateProfile(newUserDetails, userId);
+                if (updateStatus)
+                {
+                    return Ok(new ResponseBase<bool>()
+                    {
+                        Response = updateStatus,
+                        ErrorMessage = null
+                    });
+                }
                 return Ok(new ResponseBase<bool>()
                 {
                     Response = updateStatus,
-                    ErrorMessage = "Sucessfully Updated The Profile"
-                });
+                    ErrorMessage = "Could Not Update Your Profile\n Please Try Again after some time"
+                }); 
+
             }
-            return Ok(new ResponseBase<bool>()
+            catch (Exception ex)
             {
-                Response = updateStatus,
-                ErrorMessage="Could Not Update Your Profile\n Please Try Again after some time"
-            });
+                return Ok(new ResponseBase<bool>()
+                {
+                    Response = false,
+                    ErrorMessage = ex.Message
+                }) ; 
+            }
         }
 
 

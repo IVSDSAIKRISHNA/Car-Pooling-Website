@@ -1,13 +1,13 @@
 <div class="main-container">
   <div class="top-bar">
-    <img class="home-logo1" src="../../assets/logo (1).png" />
+    <a [routerLink]="'/home'"> <img class="home-logo1" src="../../assets/logo (1).png" /></a>
     <div class="user-profile">
       <div class="dropdown">
         <button class="dropbtn">{{activeUser.userName}}</button>
         <div class="dropdown-content">
           <a [routerLink]="'/infoupdate'">Profile</a>
           <a [routerLink]="'/profile'">My Rides</a>
-          <a [routerLink]="'/home/signup'">Logout</a>
+          <a [routerLink]="'/user/login'" (click)="Logout()">Logout </a>
         </div>
       </div>
       <img class="user-photo" src="../../assets/logo (1).png" />
@@ -30,7 +30,16 @@
             <div class="left-half">
               <div class="source">
                 <span>From</span>
-                <div>{{ bookedride.startPoint }}</div>
+                <div class="source-with-icon">
+                  <div>{{ bookedride.startPoint }}</div>
+                  <div class="ride-icon2"> <i class="fa fa-circle" style="font-size:18px;"></i>
+                    <i class="fa fa-circle stopicon2" style="font-size:10px; color:lightgray"></i>
+                    <i class="fa fa-circle stopicon2" style="font-size:10px; color:lightgray"></i>
+                    <i class="fa fa-circle stopicon2" style="font-size:10px; color:lightgray"></i>
+                    <i class="fa fa-circle stopicon2" style="font-size:10px; color:lightgray"></i>
+                    <i class='fas fa-map-marker-alt' style='font-size:24px;color:darkblue'></i>
+                  </div>
+                </div>
               </div>
               <div class="date">
                 <span>Date</span>
@@ -38,7 +47,7 @@
               </div>
               <div class="price">
                 <span>Price</span>
-                <div>{{ bookedride.fare }}</div>
+                <div>{{ bookedride.fare | currency }}</div>
               </div>
             </div>
             <div class="right-half">
@@ -82,7 +91,16 @@
             <div class="left-half">
               <div class="source">
                 <span>From</span>
-                <div>{{offeredride.startPoint}}</div>
+                <div class="source-with-icon">
+                  <div>{{offeredride.startPoint}}</div>
+                  <div class="ride-icon2"> <i class="fa fa-circle" style="font-size:18px;"></i>
+                    <i class="fa fa-circle stopicon2" style="font-size:10px; color:lightgray"></i>
+                    <i class="fa fa-circle stopicon2" style="font-size:10px; color:lightgray"></i>
+                    <i class="fa fa-circle stopicon2" style="font-size:10px; color:lightgray"></i>
+                    <i class="fa fa-circle stopicon2" style="font-size:10px; color:lightgray"></i>
+                    <i class='fas fa-map-marker-alt' style='font-size:24px;color:darkblue'></i>
+                  </div>
+                </div>
               </div>
               <div class="date">
                 <span>Date</span>

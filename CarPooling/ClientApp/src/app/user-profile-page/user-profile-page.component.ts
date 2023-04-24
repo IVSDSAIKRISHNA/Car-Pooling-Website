@@ -19,33 +19,38 @@ export class UserProfilePageComponent implements OnInit {
     this.activeUser = JSON.parse(localStorage.getItem("user")!);
   }
 
+  //Arrays of Previously Offered Rides and Booked Rides
   PreviouslyOfferedRides!: OfferedRide[]
   PreviouslyBookedRides!: BookRide[]
   activeUser!: User;
-  
-
-  offeredRidesCount:boolean=false
+  offeredRidesCount: boolean = false
+  bookRidesCount: boolean = false
 
 
   ngOnInit(): void {
+    //Getting the Previously Booked Rides
     this.rideService.GetBookedRide(this.activeUser.userId!).subscribe((data) => {
       this.PreviouslyBookedRides = data.response;
-      console.table(this.PreviouslyBookedRides);
-      if(this.PreviouslyBookedRides.length==0){
-        this.bookRidesCount=true;
+      if (this.PreviouslyBookedRides == null) {
+        this.bookRidesCount = true;
       }
     })
 
+    // Getting the Previously Offered Rides
     this.rideService.GetOfferedRide(this.activeUser.userId!).subscribe((data) => {
       this.PreviouslyOfferedRides = data.response;
-      if(this.PreviouslyOfferedRides.length==0){
-        this.offeredRidesCount=true;
+      if (this.PreviouslyOfferedRides == null) {
+        this.offeredRidesCount = true;
       }
     })
   }
 
- bookRidesCount:boolean=false
+  
+  // Method which Logs out the user and clears the Local Storage
+  Logout() {
+    localStorage.clear();
+  }
 
- 
+
 
 }

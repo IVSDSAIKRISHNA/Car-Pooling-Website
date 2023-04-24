@@ -4,6 +4,7 @@ import { User } from '../../models/user';
 import { UserService } from '../services/UserService.service';
 import { Router } from '@angular/router';
 import { ResponseBase } from 'src/models/response-base';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-sign-up-component',
   templateUrl: './sign-up-component.component.html',
@@ -14,7 +15,8 @@ export class SignUpComponentComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private api: UserService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -26,20 +28,24 @@ export class SignUpComponentComponent implements OnInit {
   }
 
 
-
+  // Dealing with the Status of the Signup and its response
   signupStatus: boolean = false;
-  apiResponse!: ResponseBase;
-  responseStatus:boolean=false;
+  responseStatus: boolean = false;
 
+  // To Deal With the Data That we get form the http call
+  apiResponse!: ResponseBase;
+
+  // Method which gets triggereed upon submitting the Data and Sends it
   onSubmit() {
     let confirmpassword = this.signupForm.get('confirmpassword')?.value;
+    // Giving a temporary name based on the email id until the user changes it 
     let temp = String(this.signupForm.get('email')?.value).split('@');
 
-    let newUser:User={
-      email:this.signupForm.get('email')?.value,
-      password:this.signupForm.get('password')?.value,
-      userName:temp[0],
-      phoneNumber:''
+    let newUser: User = {
+      email: this.signupForm.get('email')?.value,
+      password: this.signupForm.get('password')?.value,
+      userName: temp[0],
+      phoneNumber: ''
     }
     if (newUser.password !== confirmpassword) {
       this.signupStatus = false;
@@ -47,17 +53,20 @@ export class SignUpComponentComponent implements OnInit {
       this.api.UserRegistration(newUser).subscribe((data) => {
         this.apiResponse = data;
         this.signupStatus = this.apiResponse.response;
-        this.responseStatus=true;
+        this.responseStatus = true;
         if (this.signupStatus) {
           this.router.navigate(['/home']);
+        } else {
+          this.toastr.error("User Already Exists", "", { timeOut: 2000 });
         }
       });
     }
-
+    // Resetting the Form
     this.signupForm.reset();
   }
 
-  onClick(){
-    this.responseStatus=false;
+  //Changing the Response Status Upon Clicking on the Form
+  onClick() {
+    this.responseStatus = false;
   }
 }

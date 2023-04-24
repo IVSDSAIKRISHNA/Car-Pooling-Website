@@ -1,100 +1,136 @@
 .signup-form {
-    display: grid;
-    row-gap: 15px;
-    margin-top: 20px;
-    margin-left: 100px;
+  display: grid;
+  row-gap: 15px;
+  margin-top: 20px;
+  margin-left: 100px;
 }
 
 .sign-up {
-    background-color: rgba(255, 172, 25, 255);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    overflow-y: auto;
+  background-color: rgba(255, 172, 25, 255);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow-y: auto;
 }
 
-/* .userinput{
-    margin-top: 12%;
-} */
 .sign-up-label {
-    font-weight: 500;
-    font-size: 55px;
-    color: white;
-    margin-left: 37%;
+  font-weight: 500;
+  font-size: 50px;
+  color: white;
+  margin-left: 37%;
 }
+
+
 
 hr {
-    width: 110px;
-    height: 2px;
-    color: white;
-    background-color: white;
-    opacity: 100%;
-    margin-left: 40px;
+  width: 90px;
+  height: 2px;
+  color: white;
+  background-color: white;
+  opacity: 100%;
+  margin-left: 43px;
+  margin-top: 5px;
 }
 
 input {
-    border-radius: 5px;
-    border: none;
-    height: 7.5vh;
-    width: 85%;
-    padding: 30px;
+  border-radius: 5px;
+  border: none;
+  height: 7.5vh;
+  width: 85%;
+  padding: 30px;
 }
 
 button {
-    background-color: rgba(147, 25, 255, 255);
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
+  background-color: rgba(147, 25, 255, 255);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .submit {
-    border-radius: 30px;
-    width: 35%;
-    height: 6vh;
-    border: none;
-    margin-left: 105px;
+  border-radius: 30px;
+  width: 35%;
+  height: 6vh;
+  border: none;
+  margin-left: 105px;
 }
 
 .login {
-    color: white;
-    font-size: 20px;
-    margin-left: 170px;
-    margin-top: 20px;
+  color: white;
+  font-size: 20px;
+  margin-left: 170px;
+  margin-top: 20px;
 }
 
 a {
-    color: white;
-    font-size: 25px;
+  color: white;
+  font-size: 25px;
 }
 
 img {
-    width: 550px;
-    position: relative;
-    left: 20px;
+  width: 32.5vw;
+  position: relative;
+  left: 2px;
 }
 
 div>a {
-    text-decoration: none;
-    font-weight: 600;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .login>hr {
-    width: 50px;
-    height: 2px;
-    color: white;
-    background-color: white;
-    opacity: 100%;
-    margin-left: 9.5vw;
-    margin-top: 2px;
+  width: 50px;
+  height: 2px;
+  background-color: white;
+  margin-left: 9.5vw;
+  margin-top: 2px;
 }
 
 .form-invalid-warning {
-    color: red;
+  color: red;
 }
 
 .failed-signup {
-    color: red;
-    margin-left: 80px;
-    font-size: 20px;
+  color: red;
+  margin-left: 80px;
+  font-size: 20px;
+}
+
+@media only screen and (max-width: 750px) {
+  .login {
+    margin-top: 60px;
+    margin-left: 75px;
+  }
+
+  .sign-up {
+    padding-top: 80px;
+    padding-bottom: 10px;
+    width: 100%;
+    height: 102%;
+  }
+
+  .submit {
+    margin-left: 70px;
+  }
+
+  .signup-form {
+    row-gap: 25px;
+  }
+
+  img {
+    width: 350px;
+  }
+
+  .sign-up-label {
+    margin-left: 25%;
+  }
+
+  .signup-form {
+    margin-left: 50px;
+  }
+
+  .login>hr {
+    margin-left: 50vw;
+  }
 }

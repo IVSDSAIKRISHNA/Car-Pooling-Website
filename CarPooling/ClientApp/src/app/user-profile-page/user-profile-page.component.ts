@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { BookRide } from 'src/models/book-ride';
 import { OfferedRide } from 'src/models/offered-ride';
 import { User } from 'src/models/user';
+import * as Notiflix from 'notiflix';
+
 import { RideServiceService } from '../services/RideService.service';
 
 @Component({
@@ -42,13 +44,16 @@ export class UserProfilePageComponent implements OnInit {
       if (this.PreviouslyOfferedRides == null) {
         this.offeredRidesCount = true;
       }
+     
     })
   }
 
   
   // Method which Logs out the user and clears the Local Storage
   Logout() {
+    Notiflix.Loading.dots("Logging you out ")
     localStorage.clear();
+    Notiflix.Loading.remove(3000)
   }
 
 

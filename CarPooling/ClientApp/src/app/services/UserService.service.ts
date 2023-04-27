@@ -15,8 +15,8 @@ export class UserService {
   constructor(private http:HttpClient) { }
 
   // Common Url which is same for all the Calls
-  //commonUrl:string="https://localhost:7198/api/UserService/"
-  commonUrl:string="https://carpooling5-api.azurewebsites.net/api/UserService/"
+ // commonUrl:string="https://localhost:7198/api/UserService/"
+ commonUrl:string="https://carpooling5-api.azurewebsites.net/api/UserService/"
 
   // Calls Regarding the UserLogin, UserRegistration and User Update
   // Deals with the User Login

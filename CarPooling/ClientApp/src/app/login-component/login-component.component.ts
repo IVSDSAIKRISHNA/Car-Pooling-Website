@@ -5,6 +5,8 @@ import { ResponseBase } from 'src/models/response-base';
 import { User } from 'src/models/user';
 import { UserService } from '../services/UserService.service';
 import { ToastrService } from 'ngx-toastr';
+import * as Notiflix from 'notiflix';
+
 
 
 @Component({
@@ -25,6 +27,7 @@ export class LoginComponentComponent implements OnInit {
 
   // Used to Deal with the Response that we get from the HTTP call
   apiResponse!: ResponseBase;
+
 
   // Gets triggered when the Details are Invalid , that is if the User Dosent exist in our Database
   invalidDetails: boolean = false;
@@ -48,6 +51,7 @@ export class LoginComponentComponent implements OnInit {
 
   // gets Triggered  When Form is Submitted and calls the concerned service 
   onSubmit() {
+    Notiflix.Loading.dots("Logging In");
     let user: User = {
       userName: " ",
       email: this.loginForm.get('email')?.value,
@@ -72,6 +76,7 @@ export class LoginComponentComponent implements OnInit {
     } catch (e) {
       console.log("Something Went Wrong Please Try Again")
     }
+    Notiflix.Loading.remove(3000);
   }
 
   // Deals with the visibility of the Warning

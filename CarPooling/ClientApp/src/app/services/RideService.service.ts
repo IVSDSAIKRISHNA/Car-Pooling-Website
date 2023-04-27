@@ -12,7 +12,7 @@ export class RideServiceService {
   constructor(private http: HttpClient) { }
 
   // commonUrl: string = "https://localhost:7198/api/RideService/"
-  commonUrl:string="https://carpooling5-api.azurewebsites.net/api/RideService/"
+   commonUrl:string="https://carpooling5-api.azurewebsites.net/api/RideService/"
 
   // Calls Dealing with the Rides 
 

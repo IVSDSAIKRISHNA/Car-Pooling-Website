@@ -7,7 +7,7 @@ import { ResponseBase } from 'src/models/response-base';
 import { User } from 'src/models/user';
 import { OfferedRide } from 'src/models/offered-ride';
 import { ToastrService } from 'ngx-toastr';
-
+import * as Notiflix from 'notiflix';
 
 @Component({
   selector: 'app-book-ride-page',

@@ -5,6 +5,7 @@ import { UserService } from '../services/UserService.service';
 import { Router } from '@angular/router';
 import { ResponseBase } from 'src/models/response-base';
 import { ToastrService } from 'ngx-toastr';
+import * as Notiflix from 'notiflix';
 @Component({
   selector: 'app-sign-up-component',
   templateUrl: './sign-up-component.component.html',
@@ -37,6 +38,7 @@ export class SignUpComponentComponent implements OnInit {
 
   // Method which gets triggereed upon submitting the Data and Sends it
   onSubmit() {
+    Notiflix.Loading.dots("Registering");
     let confirmpassword = this.signupForm.get('confirmpassword')?.value;
     // Giving a temporary name based on the email id until the user changes it 
     let temp = String(this.signupForm.get('email')?.value).split('@');
@@ -63,6 +65,7 @@ export class SignUpComponentComponent implements OnInit {
     }
     // Resetting the Form
     this.signupForm.reset();
+    Notiflix.Loading.remove(3000);
   }
 
   //Changing the Response Status Upon Clicking on the Form

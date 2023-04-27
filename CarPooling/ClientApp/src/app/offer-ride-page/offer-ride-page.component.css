@@ -55,11 +55,13 @@ div>label {
 }
 
 .book-ride {
-    border-radius: 3px;
-    box-shadow: 0 0 5px 3px gray;
+    display: grid;
+    width: fit-content;
+    padding: 10px 10px 18px 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 3px 3px lightgray;
     background-color: white;
     height: fit-content;
-    display: grid;
 }
 
 .matched-rides {
@@ -147,13 +149,14 @@ input:focus {
 }
 
 .form-check-input {
-    transform: scale(2);
+    transform: scale(2) rotate(180deg);
+    background-color: black;
 }
 
 form {
     display: grid;
-    row-gap: 15px;
-    padding: 20px 20px 38px 20px;
+    row-gap: 8px;
+    padding: 20px 10px 38px 20px;
 }
 
 .first-form>div {
@@ -192,6 +195,12 @@ form {
     z-index: 100;
 }
 
+.form-check-input:checked {
+    background-color: orange;
+    border-color: orange;
+    cursor: pointer;
+}
+
 .radio-btns input[type="radio"]:checked+label,
 .Checked+label {
     background: #9319ff;
@@ -200,7 +209,7 @@ form {
 
 .radio-btns label {
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid rgb(121, 49, 179);
     cursor: pointer;
     z-index: 90;
     border-radius: 60px;
@@ -212,6 +221,7 @@ form {
     color: #9319ff;
     font-size: 25px;
     margin-left: 67%;
+    margin-top: 25px;
 }
 
 .capacity-selector {
@@ -396,6 +406,9 @@ form {
         padding: 20px 15px;
     }
 
+    .form-check-input {
+        transform: scale(1.5) rotate(180deg);
+    }
     .main-container {
         background-image: none;
     }
@@ -446,7 +459,7 @@ form {
     }
 
     form {
-        padding: 20px 20px 20px 20px;
+        padding: 20px 10px 20px 20px;
     }
 
     .no-of-seats>ul>li>label {
@@ -477,5 +490,9 @@ form {
         padding: 0px;
         margin-top: 20px;
         margin-right: 3px;
+    }
+
+    .book-ride{
+        padding: 10px 15px 18px 10px;
     }
 }

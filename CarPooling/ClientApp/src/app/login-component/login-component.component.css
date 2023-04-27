@@ -108,7 +108,7 @@ img {
   }
 
   .log-in {
-    padding-top: 117px;
+    padding-top: 106px;
   }
 
   .fas {
@@ -126,6 +126,7 @@ img {
 
   .login-form {
     margin-left: 50px;
+    row-gap: 35px;
   }
 
   .submit {
